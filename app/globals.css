@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+:root {
+  --color-charcoal: #14110d;
+  --color-surface: #1c1814;
+  --color-bone: #f3ecdd;
+  --color-stone: #a89e8f;
+  --color-rose-dust: #c48f83;
+  --color-lake-blue: #7096a4;
+  --color-saffron: #dfa24c;
+  --color-indigo: #2b2f52;
+  --color-gold: #c8a35f;
+  --color-gold-bright: #e3c581;
+
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-charcoal: var(--color-charcoal);
+  --color-surface: var(--color-surface);
+  --color-bone: var(--color-bone);
+  --color-stone: var(--color-stone);
+  --color-rose-dust: var(--color-rose-dust);
+  --color-lake-blue: var(--color-lake-blue);
+  --color-saffron: var(--color-saffron);
+  --color-indigo: var(--color-indigo);
+  --color-gold: var(--color-gold);
+  --color-gold-bright: var(--color-gold-bright);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-charcoal);
+  color: var(--color-bone);
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+}
+
+/* faint film grain — worn brass / darkroom texture over dark sections */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* countdown plates breathe like a lit vitrine case */
+.digit-plate {
+  animation: plate-glow 4.5s ease-in-out infinite;
+}
+@keyframes plate-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-gold) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 20px 1px color-mix(in srgb, var(--color-gold) 22%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .digit-plate {
+    animation: none;
+  }
+}
+
+/* museum-vitrine hairline frame for artisan / piece photography */
+.frame-gold {
+  position: relative;
+}
+.frame-gold::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .eyebrow {
+    font-size: 12px;
+  }
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold),
+    transparent
+  );
+}
+
+.hairline-solid {
+  height: 1px;
+  background: var(--color-gold);
+  opacity: 0.4;
+}
+
+/* thin outline / text-only buttons per "no filled gradient buttons" rule */
+.btn-outline {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: 1px solid currentColor;
+  padding: 14px 32px;
+  display: inline-block;
+  transition:
+    opacity 350ms var(--ease-reveal),
+    background-color 350ms var(--ease-reveal),
+    color 350ms var(--ease-reveal);
+}
+
+.btn-outline:hover {
+  opacity: 0.72;
+}
+
+.btn-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.btn-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 400ms var(--ease-reveal);
+}
+
+.btn-text:hover::after {
+  transform: scaleX(0.4);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  opacity: 0.5;
+}
